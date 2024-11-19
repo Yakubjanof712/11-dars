@@ -48,11 +48,11 @@ WHERE published_at < NOW() - INTERVAL '5 days';
 
 DELETE FROM comments
 WHERE created_at < NOW() - INTERVAL '1 year';
-
-SELECT n.id AS news_id, n.title AS news_title, c.name AS category_name
-FROM news n
-JOIN categories c ON n.category_id = c.id;
-
+SELECT name, COUNT(id) AS news_count
+FROM categories
+LEFT JOIN news ON categories id = news category_id
+GROUP BY name
+    
 SELECT * FROM news
 WHERE category_id = (SELECT id FROM categories WHERE name = 'Technologiya');
 
